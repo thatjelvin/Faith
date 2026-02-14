@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Faith ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== SECTION VISIBILITY ==================== */
+        .section {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .section.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ==================== CAPTCHA SECTION ==================== */
+        .captcha-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .captcha-box {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .captcha-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .captcha-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .captcha-title {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .captcha-instruction {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .captcha-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .captcha-image {
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .captcha-image:hover {
+            transform: scale(1.05);
+            border-color: #667eea;
+        }
+
+        .captcha-image.selected {
+            border-color: #764ba2;
+            box-shadow: 0 0 20px rgba(118, 75, 162, 0.5);
+        }
+
+        .captcha-image.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #764ba2;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .captcha-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .verify-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .verify-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
+        }
+
+        .captcha-footer {
+            margin-top: 20px;
+            color: #999;
+            font-size: 0.8em;
+        }
+
+        /* ==================== MEMORY TIMELINE SECTION ==================== */
+        .memory-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: none;
+            padding: 40px 20px;
+        }
+
+        .memory-section.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('97f64b21-194e-4c01-bcec-096cbe68f986.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.18;
+            border-radius: 20px;
+            z-index: 0;
+            filter: blur(1px);
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Image Section */
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 10px 40px rgba(118, 75, 162, 0.4);
+            animation: float-gentle 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes float-gentle {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: titlePulse 3s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(118, 75, 162, 0.3);
+            }
+            50% {
+                transform: scale(1.02);
+                text-shadow: 0 0 20px rgba(118, 75, 162, 0.6);
+            }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 50px;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* Continue to Question Button */
+        .continue-btn {
+            display: block;
+            margin: 40px auto 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 60px;
+            border-radius: 35px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        .continue-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(118, 75, 162, 0.5);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(118, 75, 162, 0.3);
+            }
+            50% {
+                box-shadow: 0 10px 35px rgba(118, 75, 162, 0.6);
+            }
+        }
+
+        /* ==================== VALENTINE QUESTION SECTION ==================== */
+        .question-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .question-text {
+            font-size: 2.5em;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 50px;
+            animation: questionPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes questionPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            min-height: 150px;
+            position: relative;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #ff6b95 0%, #ff4777 100%);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-weight: bold;
+            animation: yesGlow 1.5s ease-in-out infinite;
+            box-shadow: 0 10px 40px rgba(255, 71, 119, 0.4);
+        }
+
+        @keyframes yesGlow {
+            0%, 100% {
+                box-shadow: 0 10px 40px rgba(255, 71, 119, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 15px 50px rgba(255, 71, 119, 0.7), 0 0 60px rgba(255, 107, 149, 0.5);
+                transform: scale(1.05);
+            }
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.15) !important;
+            box-shadow: 0 20px 60px rgba(255, 71, 119, 0.6);
+        }
+
+        .no-btn {
+            background: #ccc;
+            color: #666;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            position: absolute;
+        }
+
+        .no-btn:hover {
+            background: #bbb;
+        }
+
+        /* ==================== FINAL MESSAGE SECTION ==================== */
+        .final-section {
+            background: linear-gradient(135deg, #ff6b95 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-container {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 30px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: finalAppear 1s ease;
+        }
+
+        @keyframes finalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .final-heart {
+            font-size: 5em;
+            margin-bottom: 20px;
+            animation: heartBeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.15);
+            }
+            30% {
+                transform: scale(1);
+            }
+            45% {
+                transform: scale(1.1);
+            }
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        .final-title {
+            font-size: 2em;
+            color: #764ba2;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .final-message {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .final-signature {
+            font-size: 1.4em;
+            color: #764ba2;
+            font-style: italic;
+        }
+
+        /* Floating hearts for final section */
+        .hearts-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 30px;
+            animation: floatUp 6s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkle effects */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Audio control */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-size: 1.3em;
+        }
+
+        .audio-control:hover {
+            transform: scale(1.1);
+        }
+
+        .audio-control.muted {
+            opacity: 0.6;
+        }
+
+
+
+        .chapter {
+            opacity: 0;
+            transform: translateY(50px);
+            margin-bottom: 50px;
+            transition: all 0.8s ease;
+        }
+
+        .chapter.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chapter-number {
+            font-size: 0.9em;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .chapter-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 400;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .chapter-content {
+            line-height: 1.8;
+            color: #444;
+            font-size: 1.1em;
+            text-align: justify;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Memory Photo */
+        .chapter-photo {
+            width: 100%;
+            max-width: 300px;
+            margin: 15px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .verse {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.15em;
+            line-height: 1.6;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: verseGlow 5s ease-in-out infinite;
+        }
+
+        .verse > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes verseGlow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 0 15px 40px rgba(118, 75, 162, 0.5);
+            }
+        }
+
+        .verse::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .verse-ref {
+            margin-top: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            opacity: 0.9;            position: relative;
+            z-index: 1;        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart, .teddy {
+            position: absolute;
+            font-size: 20px;
+            animation: float 15s infinite;
+            opacity: 0;
+        }
+
+        .teddy {
+            font-size: 24px;
+            animation: floatTeddy 18s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatTeddy {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.2);
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Eren Pixel Art Character */
+        .eren-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .eren-pixel {
+            width: 80px;
+            height: 80px;
+            image-rendering: pixelated;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .eren-pixel:hover {
+            transform: scale(1.1);
+        }
+
+        .eren-speech {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            animation: fadeInOut 6s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(5px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pixel art style for Eren */
+        .pixel-art {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            grid-template-rows: repeat(16, 1fr);
+            gap: 0;
+        }
+
+        .pixel {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Sparkle animation for interactive elements */
+        @keyframes sparkle {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(118, 75, 162, 0.8), 0 0 30px rgba(102, 126, 234, 0.6);
+            }
+        }
+
+        .chapter:hover {
+            animation: sparkle 1.5s ease-in-out infinite;
+            border-radius: 10px;
+        }
+
+        .timeline-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 0 10px;
+            vertical-align: middle;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+            }
+            50% {
+                transform: scale(1.3);
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 1.3em;
+            color: #764ba2;
+            font-style: italic;
+            animation: signatureGlow 4s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        @keyframes signatureGlow {
+            0%, 100% {
+                text-shadow: 0 0 5px rgba(118, 75, 162, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(118, 75, 162, 0.6);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 25px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .chapter-title {
+                font-size: 1.4em;
+            }
+
+            .hero-image {
+                width: 150px;
+                height: 150px;
+            }
+
+
+
+            .eren-container {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .eren-pixel {
+                width: 60px;
+                height: 60px;
+            }
+
+            .question-text {
+                font-size: 1.8em;
+                padding: 0 20px;
+            }
+
+            .yes-btn {
+                padding: 18px 50px;
+                font-size: 1.3em;
+            }
+
+            .final-container {
+                padding: 40px 30px;
+            }
+
+            .final-title {
+                font-size: 1.6em;
+            }
+
+            .final-message {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music (optional - replace with your audio file) -->
+    <audio id="bgMusic" loop>
+        <source src="romantic-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Audio Control Button -->
+    <div class="audio-control muted" id="audioControl" onclick="toggleMusic()">
+        🔇
+    </div>
+
+    <!-- Floating Hearts Overlay -->
+    <div class="hearts-overlay" id="heartsOverlay"></div>
+    
+    <!-- ==================== SECTION 1: CAPTCHA ==================== -->
+    <section class="section captcha-section active" id="captchaSection">
+        <div class="captcha-box">
+            <div class="captcha-header">
+                <div class="captcha-icon">💕</div>
+                <div class="captcha-title">Welcome love, So before we go further first assure me you are not a bot.</div>
+            </div>
+            <p class="captcha-instruction">
+                Select all images that contain <strong>the most beautiful person in the world</strong>
+            </p>
+            <div class="captcha-grid" id="captchaGrid">
+                <div class="captcha-image" onclick="selectCaptcha(this)">
+                    <img src="WhatsApp Image 2026-02-14 at 13.20.14.jpeg" alt="Faith 1">
+                </div>
+                <div class="captcha-image" onclick="selectCaptcha(this)">
+                    <img src="WhatsApp Image 2026-02-14 at 13.20.15.jpeg" alt="Faith 2">
+                </div>
+                <div class="captcha-image" onclick="selectCaptcha(this)">
+                    <img src="WhatsApp Image 2026-02-14 at 13.20.15 (1).jpeg" alt="Faith 3">
+                </div>
+                <div class="captcha-image" onclick="selectCaptcha(this)">
+                    <img src="WhatsApp Image 2026-02-14 at 13.20.15 (2).jpeg" alt="Faith 4">
+                </div>
+                <div class="captcha-image" onclick="selectCaptcha(this)">
+                    <img src="WhatsApp Image 2026-02-14 at 13.20.15 (3).jpeg" alt="Faith 5">
+                </div>
+                <div class="captcha-image" onclick="selectCaptcha(this)">
+                    <img src="WhatsApp Image 2026-02-14 at 13.20.16.jpeg" alt="Faith 6">
+                </div>
+            </div>
+            <button class="verify-btn" onclick="verifyCaptcha()">Verify</button>
+            <p class="captcha-footer">❤️ LoveProtect v2.14 ❤️</p>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 2: MEMORY TIMELINE ==================== -->
+    <section class="section memory-section" id="memorySection">
+        <!-- Eren Yeager Pixel Character -->
+        <div class="eren-container">
+            <div class="eren-speech">Our first anime together! 🗡️</div>
+            <div class="eren-pixel" onclick="this.style.transform='rotate(360deg)'; setTimeout(() => this.style.transform='', 500)">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Hair -->
+                    <rect x="20" y="12" width="24" height="4" fill="#4A3728"/>
+                    <rect x="16" y="16" width="32" height="8" fill="#4A3728"/>
+                    <!-- Face -->
+                    <rect x="20" y="24" width="24" height="20" fill="#FFD1A3"/>
+                    <!-- Eyes -->
+                    <rect x="24" y="28" width="4" height="4" fill="#2F4F4F"/>
+                    <rect x="36" y="28" width="4" height="4" fill="#2F4F4F"/>
+                    <rect x="25" y="29" width="2" height="2" fill="#4ECDC4"/>
+                    <rect x="37" y="29" width="2" height="2" fill="#4ECDC4"/>
+                    <!-- Mouth -->
+                    <rect x="28" y="36" width="8" height="2" fill="#8B4513"/>
+                    <!-- Body - Scout Regiment Uniform -->
+                    <rect x="16" y="44" width="32" height="12" fill="#F4F4F4"/>
+                    <rect x="22" y="48" width="20" height="4" fill="#8B7355"/>
+                    <!-- Arms -->
+                    <rect x="12" y="44" width="4" height="12" fill="#FFD1A3"/>
+                    <rect x="48" y="44" width="4" height="12" fill="#FFD1A3"/>
+                    <!-- Legs -->
+                    <rect x="22" y="56" width="8" height="8" fill="#FFFFFF"/>
+                    <rect x="34" y="56" width="8" height="8" fill="#FFFFFF"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="hero-image">
+                <img src="97f64b21-194e-4c01-bcec-096cbe68f986.jpg" alt="Faith">
+            </div>
+            <h1>For Faith</h1>
+            <p class="subtitle">A Love Story That I laugh at sometimes</p>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER ONE</div>
+                <div class="chapter-title">The First Glimpse</div>
+                <div class="chapter-content">
+                    I saw your name before I saw your face—<em>Faith</em>—glowing on the chipmunk's WhatsApp status. 
+                    Something about you made me feel like I just had to let you. Like as if I haven't said it a million times already, but that innocent smile was doing some crazy stuff to me. 
+                    I couldn't explain it then, but I knew I had to reach out. And till this day Im glad my damn ass did.
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER TWO</div>
+                <div class="chapter-title">The First Text</div>
+                <div class="chapter-content">
+                    I asked our the chipmunk to tell you. To tell you I noticed you. To tell you I wanted to know you. Did I say that though, can't remember. 
+                    In a world of instant messages, I sent mine through a messenger—like letters carried between towns, 
+                    like something out of an older, more intentional time. But then she was inadequate.
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER THREE</div>
+                <div class="chapter-title">Getting to Know You</div>
+                <div class="chapter-content">
+                    We texted. Simple conversations that became deep ones. Questions that became confessions. 
+                    Each message a thread, weaving something stronger than either of us expected. I learned who you were—
+                    your heart, your faith, your dreams. And with every word, I fell a little more.
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER FOUR</div>
+                <div class="chapter-title">The First Date (Where I Was Late, )</div>
+                <div class="chapter-content">
+                    Our first date. I was late—nervous energy and poor timing conspiring against me. 
+                    But you waited. Of course you did. That's who you are. Faith waits. Faith believes. 
+                    And in that moment, even though I'd kept you waiting, I knew you were worth every moment of waiting now.
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER FIVE</div>
+                <div class="chapter-title">The Distance(I'm cooking)</div>
+                <div class="chapter-content">
+                    A week later, I left—miles unfurling between us like an ocean. I traveled abroad for another life that just didn't make sense after what we had for like a week or two, 
+                    and the world tried to pull us apart. Most would have said goodbye. But we looked at each other and said: 
+                    <em>"Let's try."</em>(Chef Jelvin) Two words that changed everything.
+                </div>
+            </div>
+
+            <div class="verse">
+                <div style="position: relative; z-index: 1;">
+                    "Though one may be overpowered, two can defend themselves.<br>
+                    A cord of three strands is not quickly broken."
+                    <div class="verse-ref">— Ecclesiastes 4:12</div>
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER SIX</div>
+                <div class="chapter-title">Falling in Love Across Miles</div>
+                <div class="chapter-content">
+                    Here's the miracle: distance became our wilderness, the place where we learned what we were made of. 
+                    Time zones couldn't touch what we were building. Late-night calls became our sanctuary. 
+                    Text messages became love letters(And oh do I love your letters). We didn't just survive the distance—we thrived in it, 
+                    because we weren't building on sand. We were building on the Rock. Our God
+                </div>
+            </div>
+
+            <div class="chapter">
+                <div class="chapter-number">CHAPTER SEVEN</div>
+                <div class="chapter-title">Our Foundation</div>
+                <div class="chapter-content">
+                    Our love is Biblical. To honour Christs love. Not just romantic, but rooted. 
+                    We didn't fall in love by accident—we chose to, choosing each other every day, 
+                    with God at the center of it all. Three cords braided together: you, me, and Him. 
+                    And a cord of three strands is not quickly broken.
+                </div>
+            </div>
+
+            <div class="verse">
+                <div style="position: relative; z-index: 1;">
+                    Your name is Faith.<br>
+                    And faith is what carried us from a screen to forever.<br>
+                    Faith is what keeps us strong across the miles.<br>
+                    Faith is our story.<br>
+                    Faith is our future.<br>
+                    Faith, your my future.
+                </div>
+            </div>
+
+            <div class="signature">
+                Forever yours,<br>
+                Jelvin ❤️
+            </div>
+
+            <button class="continue-btn" onclick="showQuestionSection()">
+                Continue to Something Special ❤️
+            </button>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 3: VALENTINE QUESTION ==================== -->
+    <section class="section question-section" id="questionSection">
+        <div class="question-container">
+            <div class="question-text">
+                Will you be my Valentine? 💝
+            </div>
+            <div class="buttons-container" id="buttonsContainer">
+                <button class="yes-btn" onclick="sayYes()">YES! 💕</button>
+                <button class="no-btn" id="noBtn" 
+                    onmouseenter="runAway()" 
+                    ontouchstart="runAway()">
+                    No
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 4: FINAL MESSAGE ==================== -->
+    <section class="section final-section" id="finalSection">
+        <div class="final-container">
+            <div class="final-heart">❤️</div>
+            <div class="final-title">To My Beautiful Faith...</div>
+            <div class="final-message">
+                Every moment with you is a treasure I hold dear.<br><br>
+                From that first glimpse of your smile to right now,<br>
+                my heart has known that you're special.<br><br>
+                Thank you for choosing me.<br>
+                Thank you for being patient.<br>
+                Thank you for being you.<br><br>
+                I love you more than words could ever say.<br><br>
+                <strong>Happy Valentine's Day, my love! 💝</strong>
+            </div>
+            <div class="final-signature">
+                your nigga,<br>
+                Jelvin 💍
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ==================== CAPTCHA FUNCTIONALITY ====================
+        function selectCaptcha(element) {
+            element.classList.toggle('selected');
+        }
+
+        function verifyCaptcha() {
+            // No real validation - just proceed to memory section
+            document.getElementById('captchaSection').classList.remove('active');
+            document.getElementById('memorySection').classList.add('active');
+            
+            // Initialize scroll animations
+            setTimeout(initScrollAnimations, 100);
+        }
+
+        // ==================== SCROLL ANIMATIONS ====================
+        function initScrollAnimations() {
+            const chapters = document.querySelectorAll('.chapter');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            chapters.forEach(chapter => {
+                observer.observe(chapter);
+            });
+        }
+
+        // ==================== SECTION NAVIGATION ====================
+        function showQuestionSection() {
+            document.getElementById('memorySection').classList.remove('active');
+            document.getElementById('questionSection').classList.add('active');
+            
+            // Reset NO button position
+            resetNoButton();
+            
+            // Start growing YES button
+            startYesGrowth();
+        }
+
+        // ==================== NO BUTTON RUNS AWAY ====================
+        let runAwayCount = 0;
+        let yesGrowthInterval;
+
+        function runAway() {
+            const noBtn = document.getElementById('noBtn');
+            const container = document.getElementById('buttonsContainer');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Calculate random new position within the viewport
+            const maxX = window.innerWidth - 100;
+            const maxY = window.innerHeight - 50;
+            
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            runAwayCount++;
+            
+            // NO button gets smaller and moves away
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+            noBtn.style.transform = 'scale(' + Math.max(0.3, 1 - runAwayCount * 0.15) + ')';
+            noBtn.style.opacity = Math.max(0.3, 1 - runAwayCount * 0.1);
+            
+            // YES button gets BIGGER each time - more dramatic growth!
+            const yesBtn = document.querySelector('.yes-btn');
+            const currentScale = 1 + (runAwayCount * 0.2);
+            yesBtn.style.transform = 'scale(' + Math.min(currentScale, 3) + ')';
+            yesBtn.style.transition = 'transform 0.3s ease';
+            
+            // Add a little shake animation to YES button to draw attention
+            yesBtn.style.animation = 'none';
+            setTimeout(() => {
+                yesBtn.style.animation = 'yesGlow 1.5s ease-in-out infinite';
+            }, 10);
+        }
+
+        function resetNoButton() {
+            runAwayCount = 0;
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+            noBtn.style.right = '0';
+            noBtn.style.transform = 'scale(1)';
+        }
+
+        function startYesGrowth() {
+            let scale = 1;
+            yesGrowthInterval = setInterval(() => {
+                scale += 0.01;
+                const yesBtn = document.querySelector('.yes-btn');
+                if (scale < 1.8 && runAwayCount === 0) {
+                    yesBtn.style.transform = 'scale(' + scale + ')';
+                }
+            }, 150);
+        }
+
+        // ==================== YES BUTTON CLICKED ====================
+        function sayYes() {
+            if (yesGrowthInterval) clearInterval(yesGrowthInterval);
+            
+            // Show final section with hearts
+            document.getElementById('questionSection').classList.remove('active');
+            document.getElementById('finalSection').classList.add('active');
+            
+            // Start floating hearts
+            startFloatingHearts();
+            
+            // Start sparkles
+            createSparkles();
+            
+            // Auto-play music if available
+            tryPlayMusic();
+        }
+
+        // ==================== FLOATING HEARTS ====================
+        function startFloatingHearts() {
+            const overlay = document.getElementById('heartsOverlay');
+            const heartEmojis = ['❤️', '💕', '💖', '💗', '💝', '💞', '💘', '✨'];
+            
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+                heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                overlay.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 10000);
+            }
+            
+            // Create initial burst
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+            
+            // Continue creating hearts
+            setInterval(createHeart, 300);
+        }
+
+        // ==================== SPARKLE EFFECTS ====================
+        function createSparkles() {
+            const container = document.querySelector('.final-container');
+            
+            setInterval(() => {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 2000);
+            }, 500);
+        }
+
+        // ==================== AUDIO CONTROL ====================
+        let isMuted = true;
+
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const control = document.getElementById('audioControl');
+            
+            if (isMuted) {
+                audio.play().then(() => {
+                    isMuted = false;
+                    control.textContent = '🔊';
+                    control.classList.remove('muted');
+                }).catch(() => {
+                    console.log('Audio playback requires user interaction');
+                });
+            } else {
+                audio.pause();
+                isMuted = true;
+                control.textContent = '🔇';
+                control.classList.add('muted');
+            }
+        }
+
+        function tryPlayMusic() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().then(() => {
+                isMuted = false;
+                document.getElementById('audioControl').textContent = '🔊';
+                document.getElementById('audioControl').classList.remove('muted');
+            }).catch(() => {
+                // Silent fail - user needs to click audio button
+            });
+        }
+
+        // ==================== EREN INTERACTION ====================
+        const erenMessages = [
+            "Our first anime together! 🗡️",
+            "Tatakae! (Keep fighting for your love!) 💪",
+            "You're my freedom 🕊️",
+            "I'll always come back to you 🌊"
+        ];
+        
+        let messageIndex = 0;
+        document.querySelector('.eren-pixel')?.addEventListener('click', function() {
+            messageIndex = (messageIndex + 1) % erenMessages.length;
+            document.querySelector('.eren-speech').textContent = erenMessages[messageIndex];
+        });
+
+        // ==================== MOBILE TOUCH HANDLING ====================
+        document.addEventListener('touchmove', function(e) {
+            const noBtn = document.getElementById('noBtn');
+            if (!noBtn) return;
+            
+            const touch = e.touches[0];
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Check if touch is near NO button
+            const distance = Math.sqrt(
+                Math.pow(touch.clientX - (btnRect.left + btnRect.width/2), 2) +
+                Math.pow(touch.clientY - (btnRect.top + btnRect.height/2), 2)
+            );
+            
+            if (distance < 100) {
+                runAway();
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>
